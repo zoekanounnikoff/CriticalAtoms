@@ -1,4 +1,4 @@
-import tkinter as tk
+import UI
 
 class Case:
 
@@ -83,15 +83,15 @@ class Corner(Case):
 def main():
     Case.initializeCases(10)
     print("Tour 1: ")
-    print([[(maCase.numberAtoms, maCase.i, maCase.j) for maCase in ligne] for ligne in Case.CASES])
+    print([[(maCase.__dict__) for maCase in ligne] for ligne in Case.CASES])
     Case.CASES[0][0].addAtom()
     print("Tour 2: ")
-    print([[(maCase.numberAtoms, maCase.i, maCase.j) for maCase in ligne] for ligne in Case.CASES])
+    print([[(maCase.__dict__) for maCase in ligne] for ligne in Case.CASES])
     Case.CASES[0][0].addAtom()
     print("Tour 3: ")
-    print([[(maCase.numberAtoms, maCase.i, maCase.j) for maCase in ligne] for ligne in Case.CASES])
+    print([[(maCase.__dict__) for maCase in ligne] for ligne in Case.CASES])
     Case.CASES[0][0].addAtom()
     print("Tour 4: ")
-    print([[(maCase.numberAtoms, maCase.i, maCase.j) for maCase in ligne] for ligne in Case.CASES])
+    print([[(maCase.__dict__) for maCase in ligne] for ligne in Case.CASES])
 
 main()
