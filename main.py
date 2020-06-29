@@ -1,5 +1,3 @@
-import UI
-
 class Case:
 
     CASES = [] # grille de jeu 
@@ -94,4 +92,4 @@ def main():
     print("Tour 4: ")
     print([[(maCase.__dict__) for maCase in ligne] for ligne in Case.CASES])
 
-main()
+# main()
