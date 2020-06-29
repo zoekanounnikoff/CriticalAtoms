@@ -2,28 +2,30 @@ import tkinter as tk
 
 class Case:
 
-    CASES = []
+    CASES = [] # grille de jeu 
 
-    def __init__(self, numberAtoms, i,j):
+    # i et j sont les positions de la case dans la grille 
+    def __init__(self, numberAtoms, i, j):
         self.numberAtoms = numberAtoms
         self.isBorder = False
         self.isCorner = False
         self.i = i
         self.j = j # i et j sont les positions de la case dans la grille 
 
+    # Fonction qui ajoute un atome à une case ; distinction faite entre les cases bordures/coins qui ne split pas au même moment
     def addAtom(self):
         if self.isCorner:
             if self.numberAtoms < 2: self.numberAtoms += 1
-            else: self.split()
+            else: self.__split()
         elif self.isBorder:
             if self.numberAtoms < 3: self.numberAtoms += 1
-            else: self.split()
+            else: self.__split()
         else:
             if self.numberAtoms < 4: self.numberAtoms += 1
-            else: self.split()
+            else: self.__split()
 
     @classmethod
-    def initializeCases(cls, taille):
+    def initializeCases(cls, taille): # Création de la grille de jeu initiale 
         cls.CASES = [[Case(0, i, j) for i in range(taille)] for j in range(taille)]
         cls.CASES[0] = [Border(0, 0, j) for j in range(taille)]
         cls.CASES[taille-1] = [Border(0, (taille - 1), j) for j in range(taille)]
@@ -35,7 +37,7 @@ class Case:
         cls.CASES[taille-1][0] = Corner(0, taille - 1, 0)
         cls.CASES[taille-1][taille-1] = Corner(0, taille - 1, taille - 1)
 
-    @property
+    @property # Cases adjacentes à une case, vers lesquelles les atomes split 
     def adjacentCases(self):
         taille = len(Case.CASES)
         if (self.i, self.j) == (0,0):
@@ -58,7 +60,7 @@ class Case:
         else:
             return [Case.CASES[self.i][self.j - 1], Case.CASES[self.i][self.j + 1], Case.CASES[self.i + 1][self.j], Case.CASES[self.i - 1][self.j]]
     
-    def split(self):
+    def __split(self): # Effectue le split 
        self.numberAtoms = 1
        for case in self.adjacentCases:
            case.addAtom()
